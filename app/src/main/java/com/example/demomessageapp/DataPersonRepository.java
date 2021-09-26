@@ -1,6 +1,7 @@
 package com.example.demomessageapp;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -15,11 +16,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DataPersonRepository implements PersonRepository {
 
     MutableLiveData<List<User>> personsLiveData = new MutableLiveData<List<User>>();
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://rajalakshmisrinivasan.freshhr.com")
-            .addConverterFactory(GsonConverterFactory.create()).build();
-    FreshApi freshApi = retrofit.create(FreshApi.class);
-    Call<Users> call = freshApi.getUsers();
+
+    Call<Users> call = RetrofitClient
+                       .getInstance()
+                       .getApi()
+                       .getUsers(1,10);
 
 
     public void loadPersons() {

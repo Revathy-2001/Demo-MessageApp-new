@@ -44,7 +44,6 @@ class User{
     @Expose
     private String first_name;
 
-
     @SerializedName("last_name")
     @Expose
     private String lastName;
@@ -83,6 +82,15 @@ class User{
 
     public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        User user = (User) obj;
+        return id == user.id && first_name.equals(user.first_name) && lastName.equals(user.lastName)
+                && avatar.equals(user.avatar) ;
     }
 
 

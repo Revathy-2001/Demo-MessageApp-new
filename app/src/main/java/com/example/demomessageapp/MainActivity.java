@@ -3,6 +3,7 @@ package com.example.demomessageapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +35,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements PersonClickListener{
     ActivityMainBinding activityMainBinding;
     RecyclerView recyclerView;
-    RecyclerAdapter recyclerAdapter;
+    UserAdapter userAdapter;
     MainActivityViewModel mainActivityViewModel;
     Bitmap bitmap;
 
@@ -45,16 +46,20 @@ public class MainActivity extends AppCompatActivity implements PersonClickListen
         View view = activityMainBinding.getRoot();
         setContentView(view);
         recyclerView =  activityMainBinding.recyclerView;
-        recyclerAdapter = new RecyclerAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setHasFixedSize(true);
+
         mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        mainActivityViewModel.mutableLiveData.observe(this, new Observer<List<User>>() {
+        userAdapter = new UserAdapter(this);
+
+        mainActivityViewModel.userPagedList.observe(this, new Observer<PagedList<User>>() {
             @Override
-            public void onChanged(List<User> people) {
-                recyclerAdapter.submitList(people);
+            public void onChanged(PagedList<User> users) {
+                userAdapter.submitList(users);
             }
         });
+
+        recyclerView.setAdapter(userAdapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
