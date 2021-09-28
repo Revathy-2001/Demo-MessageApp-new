@@ -21,10 +21,10 @@ public class Users {
 
     @SerializedName("meta")
     @Expose
-    private Meta meta;
+    Meta meta;
 
 
-    public Meta getMeta() {
+    public  Meta getMeta() {
         return meta;
     }
 
@@ -92,6 +92,4 @@ class User{
         return id == user.id && first_name.equals(user.first_name) && lastName.equals(user.lastName)
                 && avatar.equals(user.avatar) ;
     }
-
-
 }

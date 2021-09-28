@@ -34,7 +34,6 @@ public class UserAdapter extends PagedListAdapter<User,UserAdapter.UserViewHolde
     @Override
     public UserAdapter.UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RowItemBinding rowItemBinding = RowItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
-        Log.e("Parent", String.valueOf(parent));
         context = parent.getContext();
         return new UserViewHolder(rowItemBinding);
     }
